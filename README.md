@@ -144,4 +144,4 @@ python example.py
 
 ## 致谢
 
-本项目基于 [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) 开发，感谢 PaddlePaddle 团队提供的优秀模型。
+本项目基于 [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) 和 [OnnxOCR](https://github.com/jingsongliujing/OnnxOCR.git) 开发，感谢相关团队提供的优秀模型和技术支持。
