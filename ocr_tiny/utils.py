@@ -120,7 +120,8 @@ def text_visual(
     img_h=400,
     img_w=600,
     threshold=0.0,
-    font_path=str(module_dir / "fonts/simfang.ttf"),
+    # 修复字体路径，添加缺失的 ocr_tiny 目录
+    font_path=str(module_dir / "ocr_tiny" / "fonts/simfang.ttf"),
 ):
     """
     create new blank img and draw txt on it
@@ -138,7 +139,8 @@ def text_visual(
         ), "The number of txts and corresponding scores must match"
 
     def create_blank_img():
-        blank_img = np.ones(shape=[img_h, img_w], dtype=np.int8) * 255
+        # 将 np.int8 改为 np.uint8
+        blank_img = np.ones(shape=[img_h, img_w], dtype=np.uint8) * 255
         blank_img[:, img_w - 1 :] = 0
         blank_img = Image.fromarray(blank_img).convert("RGB")
         draw_txt = ImageDraw.Draw(blank_img)
@@ -148,7 +150,13 @@ def text_visual(
 
     font_size = 20
     txt_color = (0, 0, 0)
-    font = ImageFont.truetype(font_path, font_size, encoding="utf-8")
+    # 尝试打开字体文件，如果失败则使用默认字体
+    try:
+        font = ImageFont.truetype(str(font_path), font_size, encoding="utf-8")
+    except IOError:
+        # 如果无法打开指定字体，使用默认字体
+        print(f"警告: 无法打开字体文件 {font_path}，使用默认字体")
+        font = ImageFont.load_default()
 
     gap = font_size + 5
     txt_img_list = []
@@ -199,7 +207,8 @@ def draw_ocr(
     txts=None,
     scores=None,
     drop_score=0.5,
-    font_path=str(module_dir / "fonts/simfang.ttf"),
+    # 修改字体路径，添加缺失的 ocr_tiny 目录
+    font_path=str(module_dir / "ocr_tiny" / "fonts/simfang.ttf"),
 ):
     """
     Visualize the results of OCR detection and recognition

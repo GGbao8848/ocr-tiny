@@ -84,7 +84,7 @@ if __name__ == "__main__":
     model = ONNXPaddleOcr(use_angle_cls=True, use_gpu=False)
 
     img = cv2.imread(
-        "/data2/liujingsong3/fiber_box/test/img/20230531230052008263304.jpg"
+        
     )
     s = time.time()
     result = model.ocr(img)
