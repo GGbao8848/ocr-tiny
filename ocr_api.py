@@ -18,7 +18,7 @@ ocr = ONNXPaddleOcr(
     rec_model_dir='./models/ppocrv5/rec/rec.onnx',
     cls_model_dir='./models/ppocrv5/cls/cls.onnx',
     use_angle_cls=True,
-    use_gpu=False  # 如果使用GPU加速
+    use_gpu=False  # 设置为False因为CUDA不可用，当前环境只支持CPUExecutionProvider
 )
 
 @app.route('/ocr', methods=['POST'])
